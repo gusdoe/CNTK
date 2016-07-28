@@ -831,7 +831,7 @@ $(UNITTEST_EVAL) : $(UNITTEST_EVAL_OBJ) | $(EVAL_LIB) $(CNTKMATH_LIB)
 	@echo $(SEPARATOR)
 	@mkdir -p $(dir $@)
 	@echo building $@ for $(ARCH) with build type $(BUILDTYPE)
-	$(CXX) $(LDFLAGS) $(patsubst %,-L%, $(LIBDIR) $(BOOSTLIB_PATH)) $(patsubst %, $(RPATH)%, $(LIBDIR) $(BOOSTLIB_PATH)) -o $@ $^ $(patsubst %, -l%, $(BOOSTLIBS)) -l$(EVAL) -l$(CNTKMATH) 
+	$(CXX) $(LDFLAGS) $(patsubst %,-L%, $(LIBDIR) $(BOOSTLIB_PATH)) $(patsubst %, $(RPATH)%, $(LIBDIR) $(BOOSTLIB_PATH)) -o $@ $^ $(patsubst %, -l%, $(BOOSTLIBS)) -l$(EVAL) -l$(CNTKMATH) $(LIBS)
 
 #TODO: create project specific makefile or rules to avoid adding project specific path to the global path
 INCLUDEPATH += $(SOURCEDIR)/Readers/CNTKTextFormatReader
@@ -891,7 +891,7 @@ $(UNITTEST_NETWORK): $(UNITTEST_NETWORK_OBJ) | $(CNTKMATH_LIB) $(CNTKTEXTFORMATR
 	@echo $(SEPARATOR)
 	@mkdir -p $(dir $@)
 	@echo building $@ for $(ARCH) with build type $(BUILDTYPE)
-	$(CXX) $(LDFLAGS) $(patsubst %,-L%, $(LIBDIR) $(LIBPATH) $(NVMLLIBPATH) $(BOOSTLIB_PATH)) $(patsubst %, $(RPATH)%, $(LIBDIR) $(LIBPATH) $(BOOSTLIB_PATH)) -o $@ $^ $(patsubst %, -l%, $(BOOSTLIBS)) -l$(CNTKMATH) $(LIBS) -fopenmp
+	$(CXX) $(LDFLAGS) $(patsubst %,-L%, $(LIBDIR) $(LIBPATH) $(NVMLLIBPATH) $(BOOSTLIB_PATH)) $(patsubst %, $(RPATH)%, $(LIBDIR) $(LIBPATH) $(BOOSTLIB_PATH)) -o $@ $^ $(patsubst %, -l%, $(BOOSTLIBS))$(LIBS) -l$(CNTKMATH) -fopenmp
 
 UNITTEST_MATH_SRC = \
 	$(SOURCEDIR)/../Tests/UnitTests/MathTests/BatchNormalizationEngineTests.cpp \
